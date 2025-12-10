@@ -32,8 +32,17 @@ public class ApiTester {
             String stockJson = "{\"amount\":5}";
             sendPost("http://localhost:8081/api/products/1/decreaseStock", stockJson);
 
-            // 5. Verify Final Stock
-            System.out.println("\n5. Verifying Final Stock Level...");
+            // 5. Verify Stock Level after Sale
+            System.out.println("\n5. Verifying Stock Level after Sale...");
+            sendGet("http://localhost:8081/api/products/1");
+
+            // 6. Increase Stock (Restock)
+            System.out.println("\n6. Increasing Stock (Restock of 20 items)...");
+            String restockJson = "{\"amount\":20}";
+            sendPost("http://localhost:8081/api/products/1/increaseStock", restockJson);
+
+            // 7. Verify Final Stock Level
+            System.out.println("\n7. Verifying Final Stock Level after Restock...");
             sendGet("http://localhost:8081/api/products/1");
 
             System.out.println("\n--- Tests Completed ---");
