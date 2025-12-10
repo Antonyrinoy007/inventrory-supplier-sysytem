@@ -17,6 +17,12 @@ public class SupplierService {
     }
 
     public Supplier createSupplier(Supplier supplier) {
+        if (supplierRepository.existsByEmail(supplier.getEmail())) {
+            throw new IllegalArgumentException("Supplier with email " + supplier.getEmail() + " already exists");
+        }
+        if (supplierRepository.existsByName(supplier.getName())) {
+            throw new IllegalArgumentException("Supplier with name " + supplier.getName() + " already exists");
+        }
         return supplierRepository.save(supplier);
     }
 

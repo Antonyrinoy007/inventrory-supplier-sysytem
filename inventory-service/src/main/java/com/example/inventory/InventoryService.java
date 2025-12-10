@@ -24,6 +24,9 @@ public class InventoryService {
     }
 
     public Product createProduct(Product product) {
+        if (productRepository.existsByName(product.getName())) {
+            throw new IllegalArgumentException("Product with name " + product.getName() + " already exists");
+        }
         return productRepository.save(product);
     }
 
